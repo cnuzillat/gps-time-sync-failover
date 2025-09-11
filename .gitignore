@@ -1,0 +1,30 @@
+# Raspberry Pi / Linux system
+*.img
+*.iso
+*.log
+*.bak
+*.swp
+*.swo
+.DS_Store
+
+# MicroSD card / OS files (if accidentally copied)
+boot/
+lost+found/
+
+# C build artifacts
+*.o
+*.out
+*.elf
+*.exe
+*.dSYM/
+*.a
+*.so
+
+# Temporary files
+*.tmp
+*.temp
+
+# Editor-specific files
+.vscode/
+.idea/
+*.code-workspace
