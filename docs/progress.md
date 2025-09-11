@@ -46,3 +46,30 @@ This document tracks the ongoing progress of the Raspberry Pi GPS Timekeeping Pr
 - Performed initial system updates:  
   ```bash
   sudo apt update && sudo apt upgrade
+
+---
+
+## GPS Hardware and Testing
+- Installed GPS software tools for device communication and monitoring:
+  ```bash
+  sudo apt install gpsd gpsd-clients
+- Connected VK-172 USB GPS dongle and verified detection:
+  ```bash
+  lsusb
+  ls /dev/ttyACM
+  ```
+  - Confirmed device appears as `/dev/ttyACM0`.
+- Started gpsd service and pointed it to the GPS device:
+  ```bash
+  sudo systemctl stop gpsd.socket gpsd
+  sudo gpsd /dev/ttyACM0 -F /var/run/gpsd.sock
+- Explored cgps -s to understand its output and structure:
+  - Learned how `cgps` displays satellite status, fix type, latitude, longitude, altitude, and error metrics.
+  - Observed how the dashboard updates as satellites are acquired.
+- Confirmed GPS operation:
+  - Satellites Seen: 17
+  - Satellites Used in Fix: 6
+  - Status: 3D DGPS FIX, indicating successful position fix.
+- Observations:
+  - Indoor/window placement results in slower initial satellite fix; outdoor placement will improve acquisition time.
+  - GPS coordinates and error metrics stabilize after a few minutes.
