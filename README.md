@@ -61,3 +61,13 @@ Progress is tracked in [`progress.md`](progress.md) including setup, GPS testing
 3. SSH into the Raspberry Pi and update packages:  
 ```bash
 sudo apt update && sudo apt upgrade
+```
+4. Install GPS tools:
+```bash
+sudo apt install gpsd gpsd-clients
+```
+5. Test GPS reception with `cgps -s`.
+
+---
+
+Further development will focus on C-based NMEA parsing, time acquisition, and failover logic.
