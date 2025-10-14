@@ -73,3 +73,27 @@ This document tracks the ongoing progress of the Raspberry Pi GPS Timekeeping Pr
 - Observations:
   - Indoor/window placement results in slower initial satellite fix; outdoor placement will improve acquisition time.
   - GPS coordinates and error metrics stabilize after a few minutes.
+
+---
+
+## C Programming and GPSD Integration
+- Transitioned from Python to C programming for direct GPSD communication.
+- Created and edited the first C source file `gps_time.c` using VS Code (Remote SSH to the Pi).
+- Installed necessary libraries for GPS access:
+  ```bash
+  sudo apt install libgps-dev
+- Wrote and compiled the C program using:
+  ```bash
+  gcc gps_time.c -o gps_time -lgps
+- Program functionality:
+  - Connects to the GPSD daemon running on the Pi.
+  - Continuously checks for valid GPS data.
+  - Prints current UTC time from the GPS receiver once a valid fix is obtained.
+  - Displays “Waiting for GPS fix...” while the receiver acquires satellites.
+- Verified successful compilation and execution on the Pi.
+- Practiced safely stopping programs (`Ctrl + C`) and shutting down the Pi using:
+  ```bash
+  sudo shutdown now
+- Troubleshooting insights:
+  - Initial compilation errors were caused by missing GPS library includes (resolved by installing `libgps-dev`).
+  - First fix delays were due to limited satellite visibility indoors, placement near a window or outdoors helps acquire lock faster.
