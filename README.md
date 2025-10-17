@@ -14,24 +14,25 @@ An embedded time synchronization system designed for a Raspberry Pi that acquire
 
 ---
 
-## Goals
+## Project Objectives
 
-1. Build a reliable embedded timekeeping system using Raspberry Pi and C programming.  
-2. Understand and parse GPS NMEA sentences for accurate time acquisition.  
-3. Implement failover mechanisms with an RTC module.  
-4. Develop modular, testable code suitable for aerospace-grade reliability.  
+1. Implement a robust GPS time acquisition system in C, interfacing with `gpsd`.
+2. Understand and handle NMEA sentence parsing and GPS data structures. 
+3. Implement a failover timekeeping system using a DS3231 RTC module.
+4. Demonstrate embedded development practices for aerospace-grade reliability and precision.
 
 ---
 
 ## Relevance to Aerospace
 
-Accurate and resilient timekeeping is crucial for aerospace applications, including:
+Accurate and redundant timekeeping is foundational for aerospace systems, including:
 
-- Aircraft navigation and avionics systems  
-- Communication synchronization for distributed systems  
-- Mission-critical logging and event correlation  
+- Avionics and flight control synchronization
+- Satellite communication timing
+- Logging and telemetry alignment
+- Fault-tolerant mission systems
 
-This project demonstrates the integration of hardware and software to achieve robust timing under real-world conditions.
+This project demonstrates how precise UTC synchronization can be achieved using open-source software and commodity hardware in embedded environments.
 
 ---
 
@@ -50,24 +51,51 @@ This project demonstrates the integration of hardware and software to achieve ro
 
 ## Progress
 
-Progress is tracked in [`progress.md`](progress.md) including setup, GPS testing, and initial system verification.  
+Progress is tracked in [`progress.md`](progress.md)
+
+As of the most recent update:
+- Successfully installed and configured `gpsd` and `gpsd-clients`.
+- Verified detection of VK-172 GPS dongle via `/dev/ttyACM0`.
+- Observed satellite lock and fix data using `cgps -s`.
+- Developed an initial C program (`gps_time.c`) that:
+  - Connects to `gpsd`
+  - Reads GPS fix data
+  - Outputs current UTC time once per second
+- Testing showed stable 3D DGPS fix with 5–6 satellites in use.
 
 ---
 
 ## Getting Started
 
-1. Flash Raspberry Pi OS Lite (64-bit) onto the microSD card.  
-2. Connect GPS receiver and RTC module to the Pi.  
-3. SSH into the Raspberry Pi and update packages:  
+1. Prepare Raaspberry Pi
 ```bash
 sudo apt update && sudo apt upgrade
-```
-4. Install GPS tools:
-```bash
 sudo apt install gpsd gpsd-clients
 ```
-5. Test GPS reception with `cgps -s`.
+2. Connect GPS Device
+   - Plug the VK-172 GPS dongle into a USB port.
+   - Verify detection:
+  ```bash
+lsusb
+ls /dev/ttyACM*
+```   
+3. Start gpsd
+```bash
+sudo systemctl stop gpsd.socket gpsd
+sudo gpsd /dev/ttyACM0 -F /var/run/gpsd.sock
+```
+4. Run the C Program
+```bash
+gcc gps_time.c -o gps_time -lgps
+./gps_time
+```
 
 ---
 
-Further development will focus on C-based NMEA parsing, time acquisition, and failover logic.
+## Next Steps
+
+- Improve GPS parsing and validation logic in C.
+- Add support for DS3231 RTC as a backup time source.
+- Implement logging of time synchronization events.
+- Capture and document GPS output screenshots and hardware setup images.
+- Develop the planned web dashboard for real-time status visualization.
