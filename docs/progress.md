@@ -97,3 +97,28 @@ This document tracks the ongoing progress of the Raspberry Pi GPS Timekeeping Pr
 - Troubleshooting insights:
   - Initial compilation errors were caused by missing GPS library includes (resolved by installing `libgps-dev`).
   - First fix delays were due to limited satellite visibility indoors, placement near a window or outdoors helps acquire lock faster.
+
+---
+
+# Configure NTP Backup (Chrony)
+- Installed Chrony with:
+```bash
+sudo apt install chrony
+```
+- Edited `/etc/chrony/chrony.conf` to use the NTP pool:
+```bash
+pool pool.ntp.org iburst
+```
+- Restarted Chrony and verified synchronization:
+```bash
+sudo systemctl restart chronyd
+chronyc tracking
+```
+- Confirmed successful sync with output:
+```bash
+Reference ID    : A29FC801 (time.cloudflare.com)
+Stratum         : 4
+System time     : 0.000000067 seconds fast of NTP time
+Leap status     : Normal
+```
+-The system is now accurately maintaining time using NTP as a backup source when GPS is unavailable.
