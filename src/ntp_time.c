@@ -1,3 +1,23 @@
+/**
+ * @file ntp_time.c
+ * @brief Retrieves and prints the current UTC time from an NTP server.
+ *
+ * This program sends an NTP request to a public time server and parses
+ * the response to extract the current UTC time. It demonstrates how to
+ * communicate with an NTP server using UDP sockets in C and is designed
+ * for use on a Raspberry Pi as a backup time source when GPS is unavailable.
+ *
+ * Dependencies:
+ *   - Internet access for NTP communication
+ *   - Standard C libraries (stdio.h, time.h, arpa/inet.h, etc.)
+ *
+ * Reference:
+ *   - RFC 5905: Network Time Protocol Version 4
+ *
+ * @author Chloe Nuzillat
+ * @date October 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
