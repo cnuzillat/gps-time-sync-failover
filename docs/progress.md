@@ -122,3 +122,21 @@ System time     : 0.000000067 seconds fast of NTP time
 Leap status     : Normal
 ```
 -The system is now accurately maintaining time using NTP as a backup source when GPS is unavailable.
+
+---
+
+## NTP Time Retrieval in C
+- Implemented C-based NTP client to serve as the software backup time source when GPS data is unavailable.
+- Created `ntp_time.c`, which:
+  - Opens a UDP socket to `time.nist.gov` (port 123).
+  - Sends a 48-byte NTP request packet.
+  - Receives the response and extracts the transmit timestamp (bytes 40-43)
+  - Converts the NTP time (seconds since 1900) to standard Unix epoch (seconds since 1970).
+  - Prints UTC time in human-readable format.
+- Commands used:
+```bash
+gcc ntp_time.c -o ntp_time
+./ntp_time
+```
+- Verified successful NTP communication and accurate UTC timestamp output.
+- This step establishes the software failover mechanism for time synchronization, complementing the GPS hardware source.
