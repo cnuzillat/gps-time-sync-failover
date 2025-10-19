@@ -140,3 +140,40 @@ gcc ntp_time.c -o ntp_time
 ```
 - Verified successful NTP communication and accurate UTC timestamp output.
 - This step establishes the software failover mechanism for time synchronization, complementing the GPS hardware source.
+
+---
+
+## GPS to NTP Failover Implementation
+Objective:
+  - Implement automatic failover detection between GPS and NTP time sources.
+Tasks Completed:
+  - Create new file: `gps_ntp_failover.c`
+  - Added logic to monitor GPS signal activity
+  - Implemented 5-second timeout: If no GPS data is received for more than 5 seconds, the program automatically switches to NTP time.
+  - Logs all failover events to the console for transparency.
+  - Automatically reverts to GPS once a valid GPS fix is restored.
+Key Features:
+  - Real-time UTC time display.
+  - Seamless transition between GPS and NTP.
+  - Clear console logs for debugging and monitoring.
+
+Compilation Command:
+```bash
+gcc gps_ntp_failover.c -o gps_ntp_failover -lgps
+```
+Run Command:
+```bash
+./gps_ntp_failover
+```
+Example Output:
+```pgsql
+[INFO] GPS and NTP failover system started.
+GPS Time (UTC): 18:25:40 | Lat: 43.678945 | Lon: -70.125612
+[LOG] GPS signal lost for >5 seconds, switching to NTP time.
+NTP Time (UTC): 18:25:47
+[LOG] GPS fix restored, switching back to GPS.
+GPS Time (UTC): 18:25:55 | Lat: 43.678945 | Lon: -70.125612
+```
+Notes:
+  - Ensures continous time availabilty even if GPS temporarily fails.
+  - Can be extended later to log data to a file or integrate with Chrony for hybrid time correction.
