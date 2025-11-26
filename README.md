@@ -1,6 +1,6 @@
 # GPS Time Sync Failover
 
-An embedded time synchronization system designed for a Raspberry Pi that acquires precise UTC time from a GPS receiver and automatically switches to a backup time source during GPS outages. The project features real-time monitoring, event logging, and a web-based dashboard to visualize system status and uptime. This project demonstrates reliable timekeeping for aerospace and defense applications where accurate timing is critical.
+An embedded time synchronization system designed for a Raspberry Pi that acquires precise UTC time from a GPS receiver and automatically switches to a backup time source during GPS outages. The project features real-time monitoring and event logging. This project demonstrates reliable timekeeping for aerospace and defense applications where accurate timing is critical.
 
 ---
 
